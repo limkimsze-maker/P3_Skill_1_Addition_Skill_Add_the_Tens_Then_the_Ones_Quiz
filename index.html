@@ -52,6 +52,8 @@
       --accent2:#06b6d4;
       --accent3:#22c55e;
       --font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      --menuH:72px; /* ✅ reserved space so menu button never covers anything */
     }
     *{box-sizing:border-box}
     body{
@@ -86,7 +88,7 @@
       position:relative; z-index:1;
       max-width: 980px;
       margin: 0 auto;
-      padding: 18px 14px 34px;
+      padding: 18px 14px calc(34px + var(--menuH)); /* ✅ reserve room for fixed menu button */
     }
 
     .topbar{
@@ -128,6 +130,7 @@
       transition: transform .06s ease, box-shadow .18s ease, background .18s ease;
       display:inline-flex; align-items:center; gap:10px;
       user-select:none;
+      text-decoration:none; /* ✅ allow .btn on <a> */
     }
     .btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px rgba(2,6,23,.12); }
     .btn:active{ transform: translateY(0px); }
@@ -418,6 +421,18 @@
       text-align:center;
       padding: 8px 0 2px;
     }
+
+    /* ✅ Center-bottom Main Menu button (fixed, but space is reserved via --menuH) */
+    .menuDock{
+      position:fixed;
+      left:50%;
+      bottom:12px;
+      transform:translateX(-50%);
+      z-index:20;
+      display:flex;
+      justify-content:center;
+      pointer-events:auto;
+    }
   </style>
 </head>
 
@@ -595,6 +610,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ✅ Center-bottom Main Menu button (fixed, but will not cover content) -->
+  <div class="menuDock" aria-label="main menu">
+    <a class="btn" href="https://limkimsze-maker.github.io/P3_Mental_Sum_Challenge/">⬅ Back to Main Menu</a>
   </div>
 
 <script>
@@ -1119,4 +1139,3 @@ updateSideUI();
   <script src="https://limkimsze-maker.github.io/assets/nav.js"></script>
 </body>
 </html>
-
